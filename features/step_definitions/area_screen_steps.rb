@@ -16,14 +16,16 @@ end
 
 Then(/^I see "([^"]*)" in From header$/) do |value|
   actual_value = find_element(id:"header_text_unit_from").text
-  puts("Expected value is" + value)
-  puts("Actual value is" + actual_value)
+  if actual_value != value
+    fail("Expected value is #{value}, but value was #{actual_value}")
+    end
 end
 
 And(/^I see "([^"]*)" in To header$/) do |value|
   actual_value = find_element(id:"header_text_unit_to").text
-  puts("Expected value is #{value}")
-  puts("Actual value is #{actual_value}")
+  if actual_value != value
+    fail("Expected value is #{value}, but value was #{actual_value}")
+    end
 end
 
 And(/^I click on Clear button$/) do
@@ -50,8 +52,8 @@ And(/^I press "([^"]*)" on soft keyboard$/) do |value|
   digits.each do |key|
     digit = Integer(key)
   press_keycode 7 + digit
+      end
   end
-end
 
 When(/^I select "([^"]*)" from left column$/) do |value|
   find_element(id: "radio_group_from").find_element(xpath: "//android.widget.RadioButton[@text='#{value}']").click
